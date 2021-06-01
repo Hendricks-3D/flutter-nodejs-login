@@ -16,8 +16,8 @@ class RandomWordsState extends State<RandomWords> {
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, item) {
         if (item.isOdd) return Divider();
-        final int index = item ~/
-            2; //Calculate the number of word pai that is in the listView minus the divider widget
+        //Calculate the number of word pai that is in the listView minus the divider widget
+        final int index = item ~/ 2;
 
         //generate new pairs on scroll
         if (index >= _randomWordPairs.length) {
@@ -35,14 +35,14 @@ class RandomWordsState extends State<RandomWords> {
       appBar: AppBar(title: Text('WordPair Generator'), actions: <Widget>[
         IconButton(
           icon: Icon(Icons.list),
-          onPressed: _PushSaved(),
+          onPressed: _pushSaved(),
         )
       ]),
       body: _buildList(),
     );
   }
 
-  _PushSaved() {
+  _pushSaved() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
       final Iterable<ListTile> tiles = _savedWordPairs.map((WordPair word) {
