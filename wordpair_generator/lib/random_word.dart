@@ -42,6 +42,7 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
+//This method will called when pressed to show saved words
   _pushSaved() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
