@@ -1,33 +1,30 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'Signup.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Signup());
 }
 
-class MyApp extends StatelessWidget {
+class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      //Navigator routes setup
-      routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignupPage()
-      },
-      home: MyHomePage(),
+      title: 'Signup',
+      theme: ThemeData(
+        primaryColor: Colors.blue[900],
+      ),
+      home: SignupPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,22 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Widget>[
           Container(
             child: Stack(children: <Widget>[
-              //Hello text container
+              //Signup text container
               Container(
-                  padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                  child: Text('Hello',
-                      style: TextStyle(
-                          fontSize: 80.0, fontWeight: FontWeight.bold))),
-              //There text container
-              Container(
-                  padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
-                  child: Text('There',
+                  padding: EdgeInsets.fromLTRB(15.0, 115.0, 0.0, 0.0),
+                  child: Text('Signup',
                       style: TextStyle(
                           fontSize: 80.0, fontWeight: FontWeight.bold))),
 
               //Dot text container
               Container(
-                  padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(270.0, 115.0, 0.0, 0.0),
                   child: Text('.',
                       style: TextStyle(
                           fontSize: 80.0,
@@ -75,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green)))),
                     SizedBox(height: 20.0), //Gives space between two widgets
+
                     //Password text field
                     TextField(
                       decoration: InputDecoration(
@@ -89,21 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
                               borderSide: BorderSide(color: Colors.green))),
                       obscureText: true,
                     ),
-                    SizedBox(height: 5.0), //Gives space between two widgets
 
-                    //forgot password link/ InkWell
-                    Container(
-                        alignment: Alignment(1.0, 0.0), //align right
-                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                        child: InkWell(
-                            child: Text('Forgot Password',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.green)))),
+                    SizedBox(height: 20.0), //Gives space between two widgets
 
-                    SizedBox(height: 40.0), //Gives space between two widgets
+                    //Password text field
+                    TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Username',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+
+                          //Change textfield border to green
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green))),
+                    ),
+                    SizedBox(height: 50.0), //Gives space between two widgets
 
                     //Login Button
                     Container(
@@ -116,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: GestureDetector(
                               onTap: () {},
                               child: Center(
-                                child: Text('LOGIN',
+                                child: Text('SIGNUP',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -125,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ))),
 
                     SizedBox(height: 20.0), //Gives space between two widgets
-                    //Facebook login button
+                    //BACK  button
                     Container(
                         height: 40.0,
                         color: Colors.transparent,
@@ -142,43 +136,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Center(
-                                child: ImageIcon(AssetImage('facebook.png')),
-                              ),
-                              SizedBox(width: 10.0), //Gives space
                               //adding the text
-                              Center(
-                                  child: Text('Log in With Facebook',
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('BACK',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'Montserrat')))
+                                          fontFamily: 'Montserrat'))),
                             ],
                           ),
                         )),
-
-                    SizedBox(height: 15.0), //Gives space between two widgets
-                    //Footer link
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text('New To Spotify',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                              )),
-                          SizedBox(width: 5.0),
-                          InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('/signup');
-                              },
-                              child: Text(
-                                'Register',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
-                              ))
-                        ])
                   ])),
             ]),
           )
