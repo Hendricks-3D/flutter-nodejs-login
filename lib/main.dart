@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'Models/user.dart';
 import 'Signup.dart';
+import 'Test.dart';
+import 'Services/authServices.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +19,8 @@ class MyApp extends StatelessWidget {
 
       //Navigator routes setup
       routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignupPage()
+        '/test': (BuildContext context) => new TestPage(),
+        '/signup': (BuildContext context) => new SignupPage(),
       },
       home: MyHomePage(),
     );
@@ -28,6 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  User user = new User();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontWeight: FontWeight.bold,
                           color: Colors.green))),
 
-              //Email text field container
+              //text field container
               Container(
                   padding: EdgeInsets.only(top: 300.5, left: 20.0, right: 20.0),
                   child: Column(children: <Widget>[
                     //Email text field
                     TextField(
+                        controller: this.user.nameController,
                         decoration: InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(
@@ -77,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(height: 20.0), //Gives space between two widgets
                     //Password text field
                     TextField(
+                      controller: this.user.passwordController,
                       decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: TextStyle(
@@ -114,7 +123,31 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.green,
                             elevation: 7.0,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                AuthServices()
+                                    .login(this.user.nameController.text,
+                                        this.user.passwordController.text)
+                                    .then((val) {
+                                  if (val.data['success']) {
+                                    this.user.token = val.data['token'];
+                                    Fluttertoast.showToast(
+                                        msg: 'Login Successful',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        backgroundColor: Colors.grey[600],
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: 'authentication failed',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        backgroundColor: Colors.grey[600],
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  }
+                                });
+                              },
                               child: Center(
                                 child: Text('LOGIN',
                                     style: TextStyle(
