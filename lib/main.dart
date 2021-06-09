@@ -158,6 +158,71 @@ class _MyHomePageState extends State<MyHomePage> {
                             ))),
 
                     SizedBox(height: 20.0), //Gives space between two widgets
+                    //Add User Button
+                    Container(
+                        height: 40.0,
+                        child: Material(
+                            borderRadius: BorderRadius.circular(20),
+                            shadowColor: Colors.greenAccent,
+                            color: Colors.green,
+                            elevation: 7.0,
+                            child: GestureDetector(
+                              onTap: () {
+                                AuthServices()
+                                    .addUser(
+                                        this.user.nameController.text,
+                                        this.user.passwordController.text,
+                                        'Benz')
+                                    .then((val) {
+                                  Fluttertoast.showToast(
+                                      msg: val.data['message'],
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      backgroundColor: Colors.grey[600],
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                });
+                              },
+                              child: Center(
+                                child: Text('Add User',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat')),
+                              ),
+                            ))),
+                    SizedBox(height: 20.0), //Gives space between two widgets
+                    //Add User Button
+                    Container(
+                        height: 40.0,
+                        child: Material(
+                            borderRadius: BorderRadius.circular(20),
+                            shadowColor: Colors.greenAccent,
+                            color: Colors.green,
+                            elevation: 7.0,
+                            child: GestureDetector(
+                              onTap: () {
+                                AuthServices()
+                                    .getCurrentUserData(this.user.token)
+                                    .then((val) {
+                                  Fluttertoast.showToast(
+                                      msg: val.data['message'],
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      backgroundColor: Colors.grey[600],
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                });
+                              },
+                              child: Center(
+                                child: Text('Get User',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat')),
+                              ),
+                            ))),
+                    SizedBox(height: 20.0),
                     //Facebook login button
                     Container(
                         height: 40.0,
